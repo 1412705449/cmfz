@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.hyh.dao.UserDao">
+    <select id="selectBySexAndDay" resultType="Integer">
+        select count(*)
+        from user
+        where sex = #{sex}
+          and DATE_SUB(NOW(), INTERVAL #{day} day) &lt; rigest_date
+    </select>
+    <select id="selectBySexAndLocation" resultType="MapDto">
+        select location as name, count(location) as value
+        from user
+        where sex = #{sex}
+        GROUP BY location
+    </select>
+
+
+    <!--前台-->
+    <!--登陆-->
+    <select id="login" resultType="User">
+        select *
+        from user
+        where phone = #{phone}
+          and password = #{password}
+    </select>
+    <!--补充个人信息接口-->
+    <update id="information">
+        update user
+        set password=#{password},
+            photo=#{photo},
+            name=#{name},
+            nick_name=#{nickName},
+            sex=#{sex},
+            sign=#{sign},
+            location=#{location}
+        where id = #{id}
+    </update>
+    <!--/*一级页面*/-->
+    <!--/*查5条轮播图*/selectBanner-->
+    <select id="selectBanner" resultType="Banner">
+        select *
+        from banner
+        where status = '1'
+        order by create_date desc limit 0, 5
+    </select>
+    <!--/*查询专辑*/selectAlbum-->
+    <select id="selectAlbum" resultType="Album">
+        select *
+        from album
+        where author = (select name from guru where id = (select gid from userandguru where uid = #{uid}))
+    </select>
+    <!-- /*查询文章*/selectArticle-->
+    <select id="selectArticle" resultType="Article">
+        select *
+        from article
+        where guru_id = (select id from guru where id = (select gid from userandguru where uid = #{uid}))
+    </select>
+    <!--随机展示-->
+    <select id="selectRandom" resultType="User">
+        select *
+        from user
+        where id != #{id}
+        order by rigest_date desc
+    </select>
+</mapper>
