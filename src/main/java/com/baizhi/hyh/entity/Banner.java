@@ -11,12 +11,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Banner {
+public class Banner implements Serializable {
     @Id
     @ExcelProperty("ID")
     private String id;

@@ -11,7 +11,7 @@ public class MyWebAware implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+        MyWebAware.applicationContext = applicationContext;
     }
 
     public static Object getByName(String name) {

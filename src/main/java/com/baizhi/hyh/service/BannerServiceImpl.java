@@ -1,5 +1,6 @@
 package com.baizhi.hyh.service;
 
+import com.baizhi.hyh.aspect.AddOrSelectCache;
 import com.baizhi.hyh.aspect.Log;
 import com.baizhi.hyh.dao.BannerDao;
 import com.baizhi.hyh.entity.Banner;
@@ -20,6 +21,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
+    @AddOrSelectCache
     public PageDto selectByPage(Integer page, Integer rows) {
         PageDto pageDto = new PageDto();
         int totle = bannerDao.selectCount(new Banner());

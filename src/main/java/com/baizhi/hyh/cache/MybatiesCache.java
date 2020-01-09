@@ -24,15 +24,15 @@ public class MybatiesCache implements Cache {
     @Override
     public void putObject(Object key, Object value) {
         //通过工具类获取rediesTemplate对象
-        RedisTemplate rediseTemplate = (RedisTemplate) MyWebAware.getByName("rediseTemplate");
-        rediseTemplate.opsForHash().put(this.id, key.toString(), value);
+        RedisTemplate redisTemplate = (RedisTemplate) MyWebAware.getByName("redisTemplate");
+        redisTemplate.opsForHash().put(this.id, key.toString(), value);
     }
 
     //取数据
     @Override
     public Object getObject(Object key) {
-        RedisTemplate rediseTemplate = (RedisTemplate) MyWebAware.getByName("rediseTemplate");
-        Object o = rediseTemplate.opsForHash().get(this.id, key.toString());
+        RedisTemplate redisTemplate = (RedisTemplate) MyWebAware.getByName("redisTemplate");
+        Object o = redisTemplate.opsForHash().get(this.id, key.toString());
         return o;
     }
 
@@ -44,8 +44,8 @@ public class MybatiesCache implements Cache {
     //删除缓存
     @Override
     public void clear() {
-        RedisTemplate rediseTemplate = (RedisTemplate) MyWebAware.getByName("rediseTemplate");
-        rediseTemplate.opsForHash().delete(this.id);
+        RedisTemplate redisTemplate = (RedisTemplate) MyWebAware.getByName("redisTemplate");
+        redisTemplate.opsForHash().delete(this.id);
     }
 
     @Override
